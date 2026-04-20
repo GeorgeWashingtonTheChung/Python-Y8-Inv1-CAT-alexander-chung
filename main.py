@@ -1,1 +1,1 @@
-print("quinn is a chud")
+print("Quinn is a chud and Ryan is a Ryan")
