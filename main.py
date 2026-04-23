@@ -14,4 +14,4 @@ def triangular(n):
         return 0
     return n + triangular(n - 1)
     
-triangular(5)
+print(triangular(5))
