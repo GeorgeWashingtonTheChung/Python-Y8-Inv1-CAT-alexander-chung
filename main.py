@@ -1,9 +1,17 @@
-def s_triangle(s):
-    # Prints a row of s no. of stars, then calls itself with s-1. Stops when s reaches 0
-    if s > 0:
-        print("*" * s)
-        s_triangle(s - 1)
+def s_triangle(n):
+    # Prints a row of n no. of stars, then calls itself with n-1. Stops when n reaches 0
+    if n > 0:
+        print("*" * n)
+        s_triangle(n - 1)
 
 
-n = int(input("How many layers? "))
-s_triangle(n)
+
+
+def triangular(n):
+    # Returns the nth triangular number (1+2+...+n)
+    # T(n) = n + T(n-1), base case T(0) = 0
+    if n <= 0:
+        return 0
+    return n + triangular(n - 1)
+    
+triangular(5)
