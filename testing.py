@@ -43,7 +43,7 @@ pen.goto(0, -250)
 pen.setheading(90)
 pen.pendown()
 
-simpletree(10)
+simpletree(10)          # The number there is the level of tree.
 
-screen.update()
+screen.update()         # Keeps page open
 screen.mainloop()
