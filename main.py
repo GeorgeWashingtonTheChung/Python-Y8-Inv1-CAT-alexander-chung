@@ -1,9 +1,12 @@
 import turtle
 
 screen = turtle.Screen()
-screen.bgcolor("black")
-screen.title("Fractal Tree")
+screen.bgcolor("white")
+screen.title("Fractal Tree Generator")
 screen.tracer(0)
+
+# Add this line — hides the window until we actually draw
+screen.setup(width=800, height=800)
 
 pen = turtle.Turtle()
 pen.color("green")
@@ -73,16 +76,6 @@ def simpletree(n):
     pen.setheading(dir)
     pen.pendown()
 
-# Position turtle at bottom centre facing up
-pen.penup()
-pen.goto(0, -250)
-pen.setheading(90)
-pen.pendown()
-
-simpletree(10)
-
-screen.update()
-screen.mainloop()
 
 
 
@@ -123,3 +116,99 @@ def customtree(n, length, angle, scale):
     pen.goto(pos)
     pen.setheading(dir)
     pen.pendown()
+
+
+
+def get_level():
+    # Keep asking until the user enters a valid whole number >= 0
+    while True:
+        try:
+            n = int(input("What level of tree? "))
+            if n >= 0:
+                return n
+            else:
+                print("Please enter 0 or greater.")
+        except ValueError:
+            print("Please enter a whole number.")
+
+def get_length():
+    # Keep asking until the user enters a positive number
+    while True:
+        try:
+            length = float(input("Trunk length in pixels (e.g. 100)? "))
+            if length > 0:
+                return length
+            else:
+                print("Please enter a number greater than 0.")
+        except ValueError:
+            print("Please enter a number.")
+
+def get_angle():
+    # Keep asking until the user enters a number between 1 and 90
+    while True:
+        try:
+            angle = float(input("Branch angle in degrees (e.g. 30)? "))
+            if 1 <= angle <= 90:
+                return angle
+            else:
+                print("Please enter a number between 1 and 90.")
+        except ValueError:
+            print("Please enter a number.")
+
+def get_scale():
+    # Keep asking until the user enters a number between 0 and 1
+    while True:
+        try:
+            scale = float(input("Scale factor (the higher the number the longer the lines)? "))
+            if 0 < scale < 1:
+                return scale
+            else:
+                print("Please enter a number between 0 and 1.")
+        except ValueError:
+            print("Please enter a number.")
+
+# ── Main menu loop ─────────────────────────────────────────────────────────────
+def menu():
+    print("\n╔══════════════════════════════╗")
+    print("║    Fractal Tree Generator    ║")
+    print("╚══════════════════════════════╝")
+
+    while True:
+        
+        print("1. Draw a fractal tree")
+        print("2. Quit")
+
+        choice = input("\nEnter your choice (1 or 2): ").strip()
+
+        if choice == "1":
+            print("\nEnter tree parameters:")
+
+            # Call each input function to get the parameters
+            n      = get_level()
+            length = get_length()
+            angle  = get_angle()
+            scale  = get_scale()
+
+            # Clear the previous tree and draw the new one
+            print("\n  Drawing tree...")
+            pen.clear()
+            pen.penup()
+            pen.goto(0, -250)
+            pen.setheading(90)
+            pen.pendown()
+
+            screen.tracer(0)
+            customtree(n, length, angle, scale)
+            screen.update()
+            print("Done!")
+
+        elif choice == "2":
+            print("\nGoodbye!")
+            break
+
+        else:
+            print("Please enter 1 or 2.")
+
+# ── Run ────────────────────────────────────────────────────────────────────────
+menu()
+screen.mainloop()
