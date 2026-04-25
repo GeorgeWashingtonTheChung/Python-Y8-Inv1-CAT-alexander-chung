@@ -123,13 +123,3 @@ def customtree(n, length, angle, scale):
     pen.goto(pos)
     pen.setheading(dir)
     pen.pendown()
-# Make sure its not upside down
-pen.penup()
-pen.goto(0, -250)   # start at bottom
-pen.setheading(90)  # face upward
-pen.pendown()
-# Can use this to set within the code
-customtree(8, 100, 20, 0.85)
-
-screen.update()
-screen.mainloop()
