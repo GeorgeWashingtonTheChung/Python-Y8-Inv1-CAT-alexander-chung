@@ -13,14 +13,14 @@ pen.color("green")
 pen.speed(0)
 pen.hideturtle()
 
-
+# Task 4
 def s_triangle(n):
     # Prints a row of n no. of stars, then calls itself with n-1. Stops when n reaches 0
     if n > 0:
         print("*" * n)
         s_triangle(n - 1)
 
-
+# Task 5
 def triangular(n):
     # Returns the nth triangular number (1+2+...+n)
     # T(n) = n + T(n-1), base case T(0) = 0
@@ -28,7 +28,7 @@ def triangular(n):
         return 0
     return n + triangular(n - 1)
 
-
+# Task 6
 def fibonacci(n):
     # Fibonacci: 1, 1, 2, 3, 5... (each number is the sum of the two before it)
     if n <= 2:
@@ -38,7 +38,7 @@ def fibonacci(n):
 
 
 
-
+# Task 7
 def simpletree(n):
     if n == 0:
         return
@@ -68,7 +68,7 @@ def simpletree(n):
 
 
 
-
+# Task 8
 def customtree(n, length, angle, scale):
     
     # Draw a Level-n fractal tree with user-defined properties.
@@ -107,6 +107,7 @@ def customtree(n, length, angle, scale):
     pen.setheading(dir)
     pen.pendown()
 
+# Task 10
 def randomfractaltree(n, length, angle, scale):
    
     if n == 0:
@@ -198,7 +199,7 @@ def reset_turtle():
     pen.setheading(90)
     pen.pendown()
 
-# Main Menu
+# Main Menu(Task 9)
 def menu():
     print("\n╔----------------------------------╗")
     print("|    Fractal Tree Generator        |")
