@@ -1,5 +1,5 @@
 import turtle
-
+import random
 screen = turtle.Screen()
 screen.bgcolor("white")
 screen.title("Fractal Tree Generator")
@@ -37,17 +37,7 @@ def fibonacci(n):
 
 
 
-import turtle
 
-screen = turtle.Screen()
-screen.bgcolor("black")
-screen.title("Fractal Tree")
-screen.tracer(0)
-
-pen = turtle.Turtle()
-pen.color("green")
-pen.speed(0)
-pen.hideturtle()
 
 def simpletree(n):
     if n == 0:
@@ -117,7 +107,42 @@ def customtree(n, length, angle, scale):
     pen.setheading(dir)
     pen.pendown()
 
+def randomfractaltree(n, length, angle, scale):
+   
+    if n == 0:
+        return
 
+    pos = pen.position()
+    dir = pen.heading()
+
+    # Pick a random angle: vary by up to +/- 15 degrees from the base angle
+    rand_angle = angle + random.uniform(-15, 15)
+
+    # Pick a random scale: vary by up to +/- 0.1 from the base scale
+    # clamp it so it stays between 0.1 and 0.99 (avoids broken trees)
+    rand_scale = scale + random.uniform(-0.1, 0.1)
+    rand_scale = max(0.1, min(0.99, rand_scale))
+
+    # Draw branch and recurse left
+    pen.forward(length)
+    pen.left(rand_angle)
+    randomfractaltree(n - 1, length * rand_scale, angle, scale)
+
+    # Restore and recurse right
+    pen.penup()
+    pen.goto(pos)
+    pen.setheading(dir)
+    pen.pendown()
+
+    pen.forward(length)
+    pen.right(rand_angle)
+    randomfractaltree(n - 1, length * rand_scale, angle, scale)
+
+    # Restore for caller
+    pen.penup()
+    pen.goto(pos)
+    pen.setheading(dir)
+    pen.pendown()
 
 def get_level():
     # Keep asking until the user enters a valid whole number >= 0
@@ -147,7 +172,7 @@ def get_angle():
     # Keep asking until the user enters a number between 1 and 90
     while True:
         try:
-            angle = float(input("Branch angle in degrees (e.g. 30)? "))
+            angle = float(input("Angle between branches in degrees (e.g. 30)? "))
             if 1 <= angle <= 90:
                 return angle
             else:
@@ -167,7 +192,7 @@ def get_scale():
         except ValueError:
             print("Please enter a number.")
 
-# ── Main menu loop ─────────────────────────────────────────────────────────────
+# Main Menu
 def menu():
     print("\n╔------------------------------╗")
     print("|    Fractal Tree Generator    |")
@@ -185,7 +210,7 @@ def menu():
 
             # Call each input function to get the parameters
             n      = get_level()
-            length = get_length/2()
+            length = get_length()
             angle  = get_angle()
             scale  = get_scale()
 
@@ -209,6 +234,6 @@ def menu():
         else:
             print("Please enter 1 or 2.")
 
-# ── Run ────────────────────────────────────────────────────────────────────────
-menu()
+
+print(triangular(0))
 screen.mainloop()
