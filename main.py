@@ -243,7 +243,7 @@ def menu():
             break
 
         else:
-            print("  Please enter 1, 2 or 3.")
+            print("Please enter 1, 2 or 3.")
 
 # ── Run ────────────────────────────────────────────────────────────────────────
 menu()
