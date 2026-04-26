@@ -191,49 +191,60 @@ def get_scale():
                 print("Please enter a number between 0 and 1.")
         except ValueError:
             print("Please enter a number.")
+def reset_turtle():
+    pen.clear()
+    pen.penup()
+    pen.goto(0, -250)
+    pen.setheading(90)
+    pen.pendown()
 
 # Main Menu
 def menu():
-    print("\n╔------------------------------╗")
-    print("|    Fractal Tree Generator    |")
-    print("╚------------------------------╝")
+    print("\n╔══════════════════════════════════╗")
+    print("║    Fractal Tree Generator        ║")
+    print("╚══════════════════════════════════╝")
 
     while True:
-        
-        print("1. Draw a fractal tree")
-        print("2. Quit")
+        print("\n--- Main Menu ---")
+        print("1. Draw a regular fractal tree")
+        print("2. Draw a random fractal tree")
+        print("3. Quit")
 
-        choice = input("\nEnter your choice (1 or 2): ").strip()
+        choice = input("\nEnter your choice (1, 2 or 3): ").strip()
 
         if choice == "1":
             print("\nEnter tree parameters:")
-
-            # Call each input function to get the parameters
             n      = get_level()
             length = get_length()
             angle  = get_angle()
             scale  = get_scale()
 
-            # Clear the previous tree and draw the new one
             print("\n  Drawing tree...")
-            pen.clear()
-            pen.penup()
-            pen.goto(0, -250)
-            pen.setheading(90)
-            pen.pendown()
-
-            screen.tracer(0)
+            reset_turtle()
             customtree(n, length, angle, scale)
             screen.update()
-            print("Done!")
+            print("  Done!")
 
         elif choice == "2":
+            print("\nEnter tree parameters:")
+            n      = get_level()
+            length = get_length()
+            angle  = get_angle()
+            scale  = get_scale()
+
+            print("\n  Drawing random tree...")
+            reset_turtle()
+            randomfractaltree(n, length, angle, scale)
+            screen.update()
+            print("  Done! Run again to get a different tree.")
+
+        elif choice == "3":
             print("\nGoodbye!")
             break
 
         else:
-            print("Please enter 1 or 2.")
+            print("  Please enter 1, 2 or 3.")
 
-
-print(triangular(0))
+# ── Run ────────────────────────────────────────────────────────────────────────
+menu()
 screen.mainloop()
