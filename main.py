@@ -5,7 +5,7 @@ screen.bgcolor("white")
 screen.title("Fractal Tree Generator")
 screen.tracer(0)
 
-# Add this line — hides the window until we actually draw
+
 screen.setup(width=800, height=800)
 
 pen = turtle.Turtle()
@@ -330,5 +330,5 @@ def menu():
         else:
             print("  Please enter 1, 2, 3 or 4.")
 # Run 
-menu()
+simpletree(10)
 screen.mainloop()
