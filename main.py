@@ -144,6 +144,75 @@ def randomfractaltree(n, length, angle, scale):
     pen.goto(pos)
     pen.setheading(dir)
     pen.pendown()
+# Task 11
+def realistictree(n, length, angle, scale, max_n):
+
+    # New thingies
+    #  1. Branch thickness means trunk is thick, tips are thin
+    #  2. Branch colour: brown at the bottom, green near the tips
+    #  3. Leaf dots: small green circles drawn at the tip branches (n==0)
+
+    # n      : current level (counts down)
+    # length : length of this branch in pixels
+    # angle  : base angle between branches
+    # scale  : base scale factor between levels
+    # max_n  : the original starting level 
+    
+
+    # ── Base case: draw a leaf dot instead of just returning ──────────────────
+    if n == 0:
+        pen.penup()
+        pen.color("#228B22")        # forest green for leaves(Used hexadecimal converter)
+        pen.begin_fill()
+        pen.circle(4)               # small filled circle
+        pen.end_fill()
+        pen.pendown()
+        return
+
+    # Save position and heading
+    pos = pen.position()
+    dir = pen.heading()
+
+    # Branch thickness
+    pen.pensize(max(1, n))
+
+    # Branch colour
+    depth_ratio = n / max_n
+    if depth_ratio > 0.5:
+        # Lower half of tree: brown trunk colour
+        pen.color("#8B4513")        # saddle brown(Hexadecimal converter)
+    elif depth_ratio > 0.25:
+        # Middle: transition to dark green
+        pen.color("#556B2F")        # dark olive green(Hexadecimal converter)
+    else:
+        # Near tips: bright green
+        pen.color("#228B22")        # forest green(Hexadecimal converter)
+
+    # All below is same as Task 10
+    rand_angle = angle + random.uniform(-15, 15)
+    rand_scale = max(0.1, min(0.99, scale + random.uniform(-0.1, 0.1)))
+
+    # Draw branch and recurse left
+    pen.pendown()
+    pen.forward(length)
+    pen.left(rand_angle)
+    realistictree(n - 1, length * rand_scale, angle, scale, max_n)
+
+    # Restore and recurse right
+    pen.penup()
+    pen.goto(pos)
+    pen.setheading(dir)
+    pen.pendown()
+
+    pen.forward(length)
+    pen.right(rand_angle)
+    realistictree(n - 1, length * rand_scale, angle, scale, max_n)
+
+    # Restore for caller
+    pen.penup()
+    pen.goto(pos)
+    pen.setheading(dir)
+    pen.pendown()
 
 def get_level():
     # Keep asking until the user enters a valid whole number >= 0
@@ -209,9 +278,11 @@ def menu():
         print("\n--- Main Menu ---")
         print("1. Draw a regular fractal tree")
         print("2. Draw a random fractal tree")
-        print("3. Quit")
+        print("3. Draw a realistic fractal tree")
+        print("4. Quit")
 
-        choice = input("\nEnter your choice (1, 2 or 3): ").strip()
+        choice = input("\nEnter your choice (1-4): ").strip()
+
 
         if choice == "1":
             print("\nEnter tree parameters:")
@@ -240,12 +311,24 @@ def menu():
             print("  Done! Run again to get a different tree.")
 
         elif choice == "3":
+            print("\nEnter tree parameters:")
+            n      = get_level()
+            length = get_length()
+            angle  = get_angle()
+            scale  = get_scale()
+            print("\n  Drawing realistic tree...")
+            reset_turtle()
+            # pass n as max_n so the function knows the full depth
+            realistictree(n, length, angle, scale, max_n=n)
+            screen.update()
+            print("  Done! Run again for a different tree.")
+
+        elif choice == "4":
             print("\nGoodbye!")
             break
 
         else:
-            print("Please enter 1, 2 or 3.")
-
-# ── Run ────────────────────────────────────────────────────────────────────────
+            print("  Please enter 1, 2, 3 or 4.")
+# Run 
 menu()
 screen.mainloop()
