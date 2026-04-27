@@ -152,14 +152,10 @@ def realistictree(n, length, angle, scale, max_n):
     #  2. Branch colour: brown at the bottom, green near the tips
     #  3. Leaf dots: small green circles drawn at the tip branches (n==0)
 
-    # n      : current level (counts down)
-    # length : length of this branch in pixels
-    # angle  : base angle between branches
-    # scale  : base scale factor between levels
-    # max_n  : the original starting level 
+   
     
 
-    # ── Base case: draw a leaf dot instead of just returning ──────────────────
+    # draw a leaf dot instead of just returning 
     if n == 0:
         pen.penup()
         pen.color("#228B22")        # forest green for leaves(Used hexadecimal converter)
@@ -330,5 +326,5 @@ def menu():
         else:
             print("  Please enter 1, 2, 3 or 4.")
 # Run 
-simpletree(10)
+menu()
 screen.mainloop()

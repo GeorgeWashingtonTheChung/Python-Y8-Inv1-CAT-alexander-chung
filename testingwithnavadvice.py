@@ -14,16 +14,6 @@ pen.hideturtle()
 
 def customtree(n, length, angle, scale):
     
-    # Draw a Level-n fractal tree with user-defined properties.
-
-
-
-    # n      - level of the tree (0 = nothing)
-    # length - length in pixels of the first/trunk branch
-    # angle  - angle in degrees between branches
-    # scale  - factor by which each branch shrinks per level
-                     # e.g. scale=0.75 means each child branch is 75% of its parent
-    
 
     if n == 0:
         return  # Base case: nothing to draw
